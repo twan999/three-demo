@@ -6,6 +6,10 @@ import {SceneController} from './sceneController.js'
 
 const threeViewport = document.querySelector('#threeViewport')
 const resetButton = document.querySelector('#reset')
+const upButton = document.querySelector('#up')
+const downButton = document.querySelector('#down')
+const leftButton = document.querySelector('#left')
+const rightButton = document.querySelector('#right')
 
 const bounds = 600
 let scene, sceneController, renderer, camera, cameraController
@@ -49,6 +53,22 @@ const initializeScene = () => {
   resetButton.onclick = () => {
     cameraController.reset()
     sceneController.reset()
+  }
+
+  upButton.onclick = () => {
+    sceneController.move('up')
+  }
+
+  downButton.onclick = () => {
+    sceneController.move('down')
+  }
+
+  leftButton.onclick = () => {
+    sceneController.move('left')
+  }
+
+  rightButton.onclick = () => {
+    sceneController.move('right')
   }
 }
 

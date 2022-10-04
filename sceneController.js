@@ -1,5 +1,7 @@
 import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js'
 
+const MOVEMENT = 20; // movement size
+
 class SceneController {
   constructor(scene, groundPlane, camera, controller, threeViewport, colorPickerRef) {
     this.scene = scene
@@ -47,9 +49,35 @@ class SceneController {
     }
   }
 
-  move() {
-    //Implement move here
-    //object must be moved like in the sample recording
+  move(dir) {
+    if (this.sceneObjects.length === 0)
+      return;
+    const rotation = this.controller.rotation.y // camera 
+    const cosValue = Math.cos(rotation) * MOVEMENT // cos movement
+    const sinValue = Math.sin(rotation) * MOVEMENT // sin movement
+    const lastObject = this.sceneObjects[this.sceneObjects.length - 1]; // last object
+
+    // move by direction
+    switch (dir) {
+      case 'up':
+        lastObject.mesh.position.z -= cosValue;
+        lastObject.mesh.position.x -= sinValue;
+        break;
+      case 'down':
+        lastObject.mesh.position.z += cosValue
+        lastObject.mesh.position.x += sinValue
+        break;
+      case 'left':
+        lastObject.mesh.position.x -= cosValue
+        lastObject.mesh.position.z += sinValue
+        break;
+      case 'right':
+        lastObject.mesh.position.x += cosValue
+        lastObject.mesh.position.z -= sinValue
+        break;
+      default:
+        break;
+    }
   }
 
   reset() {
